@@ -1,0 +1,17 @@
+.create > .controls {
+  width: 100%;
+  height: 60px;
+}
+
+.create > .controls > ul {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.create > .controls > ul > li {
+  display: inline-block;
+  padding: 0 14px 0 14px;
+  line-height: 60px;
+}

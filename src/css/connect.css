@@ -1,0 +1,42 @@
+.connect {
+  width: 100%;
+  color: #ffffff;
+  background-color: #000209;
+}
+
+.connect > .preview {
+  display: block;
+  margin: 0 auto 0 auto;
+  width: 852px;
+  height: 300px;
+}
+
+.connect > .title {
+  margin: 26px 0 0 0;
+  font-size: 4em;
+  font-weight: 300;
+  text-align: center;
+}
+
+.connect > .description {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+.connect > a > .connect-strava-button {
+  display: block;
+  margin: 40px auto 0 auto;
+  padding: 0 0 40px 0;
+}
+
+.connect > .authorizing {
+  display: block;
+  margin: 40px auto 0 auto;
+  padding: 0 0 40px 0;
+  text-align: center;
+}
+
+.connect > .authorizing > .indicator {
+  display: block;
+  margin: auto;
+}

@@ -1,0 +1,97 @@
+import { Box3, Texture, Mesh, PlaneGeometry, MeshBasicMaterial, Scene, TextureLoader, WebGLRenderer } from 'three'
+import Composition from './render/composition.js'
+import Visualization from './render/visualization.js'
+import React from 'react'
+import Touch from './touch.js'
+import PoweredByStrava from './images/strava/powered-by-strava.png'
+import './css/noselect.css'
+import './css/card.css'
+
+const BACKGROUND_COLOR = 0x000209
+
+const LOGO = {
+  width: 0.4,
+  height: 0.1,
+  verticalPadding: 0.013,
+}
+
+const textureLoader = new TextureLoader()
+
+export default class extends React.Component {
+  
+  constructor(props) {
+    super(props)
+    
+    this.container = React.createRef()
+    
+    this.animate = this.animate.bind(this)
+    
+    this.scene = new Scene()
+    
+    this.composition = new Composition(this.scene)
+    this.composition.setBackgroundColor(BACKGROUND_COLOR)
+  }
+  
+  componentDidMount() {
+    const height = this.container.current.offsetHeight
+  
+    this.webGLRenderer = new WebGLRenderer()
+    this.webGLRenderer.autoClear = false
+    this.webGLRenderer.setClearColor(0x000000, 0)
+    this.webGLRenderer.setSize(height, height)
+    this.webGLRenderer.setPixelRatio(window.devicePixelRatio)
+    this.container.current.appendChild(this.webGLRenderer.domElement)
+    
+    const bufferSize = this.webGLRenderer.getDrawingBufferSize()
+    this.composition.setSize(bufferSize.width, bufferSize.height)
+    
+    this.logo = new Mesh(
+      new PlaneGeometry(LOGO.width, LOGO.height),
+      new MeshBasicMaterial({ transparent: true, map: textureLoader.load(PoweredByStrava) })
+    )
+    this.logo.position.x = 0.5 - LOGO.width/2
+    this.logo.position.y = -0.5 + LOGO.height/2 - LOGO.verticalPadding
+    this.composition.addObject(this.logo)
+    
+    this.touch = new Touch(this.container.current, (delta) => {
+      this.scene.rotation.y += delta.x * 0.002
+    })
+    
+    this.visualization = new Visualization(this.props.activities, this.scene)
+    this.composition.fitBoundingBox(this.visualization.boundingBox)
+    
+    this.animate()
+  }
+  
+  render() {
+    return <div className="card noselect" ref={this.container}></div>
+  }
+  
+  animate() {
+    requestAnimationFrame(this.animate)
+    this.composition.render(this.webGLRenderer)
+  }
+  
+  exportImage(width, height, callback) {
+    const webGLRenderer = new WebGLRenderer()
+    webGLRenderer.autoClear = false
+    webGLRenderer.setClearColor(0x000000, 0)
+    webGLRenderer.setSize(width, height)
+
+    const composition = new Composition(this.scene)
+    composition.setSize(width, height)
+    composition.fitBoundingBox(this.visualization.boundingBox)
+    composition.setBackgroundColor(BACKGROUND_COLOR)
+
+    composition.addObject(this.logo.clone())
+
+    composition.render(webGLRenderer)
+
+    webGLRenderer.domElement.toBlob(blob => {
+      const url = URL.createObjectURL(blob)
+      callback(url)
+      URL.revokeObjectURL(url)
+    })
+  }
+  
+}
