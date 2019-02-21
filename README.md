@@ -8,7 +8,7 @@ Grant Activity Card access to a user's Strava data
 
 #### parameters
 
-`authorizationCode`: OAuth2.0 authorization code obtained from Strava API
+`authorizationCode`: OAuth 2.0 authorization code obtained from Strava API
 
 #### response
 
