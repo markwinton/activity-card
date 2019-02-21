@@ -1,6 +1,6 @@
 # Activity Card
 
-## Routes
+## routes
 
 ### POST /auth/authorize/:authorizationCode
 
