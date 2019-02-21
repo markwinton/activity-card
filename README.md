@@ -39,7 +39,7 @@ Return a user's Strava activities
 
 #### parameters
 
-`before`, `after`: UTC unix timestamps for activities in range [`after`, `before`]
+`before`, `after`: unix timestamps for activities in range [`after`, `before`]
 
 #### headers
 
@@ -62,7 +62,7 @@ Return a user's Strava activities
 
 `type`: `0`=normal, `1`=workout, `2`=race
 
-`start`: start time as UTC unix timestamp
+`start`: start time as unix timestamp
 
 `distance`: distance in meters
 
