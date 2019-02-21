@@ -68,33 +68,19 @@ Return a user's Strava activities
 
 ## .env
 
-Strava oauth client id
+`CLIENT_ID=123456`: Strava oauth client id
 
-`CLIENT_ID=123456`
+`CLIENT_SECRET=1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a`: Strava oauth client secret
 
-Strava oauth client secret
+`ASSETS_URL=https://bucket.s3.amazonaws.com`: location of Strava brand images
 
-`CLIENT_SECRET=1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a`
+`SERVICE_URL=http://localhost:3000`: service location
 
-location of Strava brand images
+`PORT=3000`: service port
 
-`ASSETS_URL=https://bucket.s3.amazonaws.com`
+`DATABASE_URL=postgress://localhost:5432`: postgres location
 
-service location
-
-`SERVICE_URL=http://localhost:3000`
-
-service port
-
-`PORT=3000`
-
-postgres location
-
-`DATABASE_URL=postgress://localhost:5432`
-
-Access-Control-Allow-Origin
-
-`ALLOW_ORIGIN=http://localhost:8080 `
+`ALLOW_ORIGIN=http://localhost:8080`: Access-Control-Allow-Origin
 
 ## postgres
 
