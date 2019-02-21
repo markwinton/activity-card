@@ -1,5 +1,7 @@
 # Activity Card
 
+https://markwinton.github.io/activity-card
+
 ## routes
 
 ### POST /auth/authorize/:authorizationCode
@@ -68,28 +70,19 @@ Return a user's Strava activities
 
 ## .env
 
-```
-# Strava oauth client id
-CLIENT_ID=123456 
+`CLIENT_ID`: Strava oauth client id
 
-# Strava oauth client secret
-CLIENT_SECRET=1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a 
+`CLIENT_SECRET`: Strava oauth client secret
 
-# location of Strava brand images
-ASSETS_URL=https://bucket.s3.amazonaws.com
+`ASSETS_URL`: location of Strava brand images
 
-# service location
-SERVICE_URL=http://localhost:3000
+`SERVICE_URL`: service location
 
-# service port
-PORT=3000 
+`PORT`: service port
 
-# postgres location
-DATABASE_URL=postgress://localhost:5432
+`DATABASE_URL`: postgres location
 
-# Access-Control-Allow-Origin
-ALLOW_ORIGIN=http://localhost:8080 
-```
+`ALLOW_ORIGIN`: Access-Control-Allow-Origin
 
 ## postgres
 
