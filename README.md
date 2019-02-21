@@ -1,6 +1,6 @@
 # Activity Card Service
 
-## Authorization
+## Routes
 
 ### POST /auth/authorize/:authorizationCode
 
@@ -30,8 +30,6 @@ Revoke Activity Card's access to a user's Strava data
 #### headers
 
 `"Authorization": "Bearer {session token}"`
-
-## API
 
 ### GET /api/v1/activities/:before/:after
 
