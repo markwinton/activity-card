@@ -39,7 +39,7 @@ Return a user's Strava activities
 
 #### parameters
 
-`before`, `after`: UTC unix timestamps for activities in range [`after`, `before`] exclusive
+`before`, `after`: UTC unix timestamps for activities in range [`after`, `before`]
 
 #### headers
 
