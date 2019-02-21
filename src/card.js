@@ -3,7 +3,6 @@ import Composition from './render/composition.js'
 import Visualization from './render/visualization.js'
 import React from 'react'
 import Touch from './touch.js'
-import PoweredByStrava from './images/strava/powered-by-strava.png'
 import './css/noselect.css'
 import './css/card.css'
 
@@ -47,7 +46,7 @@ export default class extends React.Component {
     
     this.logo = new Mesh(
       new PlaneGeometry(LOGO.width, LOGO.height),
-      new MeshBasicMaterial({ transparent: true, map: textureLoader.load(PoweredByStrava) })
+      new MeshBasicMaterial({ transparent: true, map: textureLoader.load(env.ASSETS_URL + '/powered-by-strava.png') })
     )
     this.logo.position.x = 0.5 - LOGO.width/2
     this.logo.position.y = -0.5 + LOGO.height/2 - LOGO.verticalPadding

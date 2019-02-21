@@ -3,7 +3,6 @@ import { generateToken } from './crypto.js'
 import React from 'react'
 import { Redirect } from 'react-router-dom'
 import queryString from 'query-string'
-import ConnectStrava from './images/strava/connect-strava.png'
 import Preview from './images/preview.png'
 import './css/connect-strava-button.css'
 import './css/connect.css'
@@ -11,7 +10,7 @@ import './css/indicator.css'
 
 const SCOPE = 'activity:read_all'
 
-const Connect = props => <a onClick={props.onClick}><img src={ConnectStrava} className="connect-strava-button" /></a>
+const Connect = props => <a onClick={props.onClick}><img src={env.ASSETS_URL + '/connect-strava.png'} className="connect-strava-button" /></a>
 
 const Authorizing = props => (
   <div className="authorizing">
