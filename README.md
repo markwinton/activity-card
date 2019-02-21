@@ -1,6 +1,6 @@
 # Activity Card Service
 
-## Authorization
+## Routes
 
 ### POST /auth/authorize/:authorizationCode
 
@@ -8,7 +8,7 @@ Grant Activity Card access to a user's Strava data
 
 #### parameters
 
-`authorizationCode`: OAuth2.0 authorization code obtained from Strava API
+`authorizationCode`: OAuth 2.0 authorization code obtained from Strava API
 
 #### response
 
@@ -31,15 +31,13 @@ Revoke Activity Card's access to a user's Strava data
 
 `"Authorization": "Bearer {session token}"`
 
-## API
-
 ### GET /api/v1/activities/:before/:after
 
 Return a user's Strava activities 
 
 #### parameters
 
-`before`, `after`: UTC unix timestamps for activities in range [`after`, `before`] exclusive
+`before`, `after`: unix timestamps for activities in range [`after`, `before`]
 
 #### headers
 
@@ -62,7 +60,7 @@ Return a user's Strava activities
 
 `type`: `0`=normal, `1`=workout, `2`=race
 
-`start`: start time as UTC unix timestamp
+`start`: start time as unix timestamp
 
 `distance`: distance in meters
 
