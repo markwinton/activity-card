@@ -1,4 +1,4 @@
-# Activity Card Service
+# Activity Card
 
 ## Routes
 
@@ -66,7 +66,32 @@ Return a user's Strava activities
 
 `speed`: average speed in meters per second
 
-## Postgres
+## .env
+
+```
+# Strava oauth client id
+CLIENT_ID=123456 
+
+# Strava oauth client secret
+CLIENT_SECRET=1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a 
+
+# location of Strava brand images
+ASSETS_URL=https://bucket.s3.amazonaws.com
+
+# service location
+SERVICE_URL=http://localhost:3000
+
+# service port
+PORT=3000 
+
+# postgres location
+DATABASE_URL=postgress://localhost:5432
+
+# Access-Control-Allow-Origin
+ALLOW_ORIGIN=http://localhost:8080 
+```
+
+## postgres
 
 ```
 CREATE TABLE limiters (
