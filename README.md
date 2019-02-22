@@ -10,7 +10,7 @@ Activity Card is made up of a static React frontend, an Express service and a Po
 
 1. Start a Postgres server with the tables below
 
-2. Create a `.env` file in the root directory of the repo with
+2. Create a `.env` file in the root directory of the app with
 
 ```
 CLIENT_ID={strava oauth client id}
