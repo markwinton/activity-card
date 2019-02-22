@@ -2,7 +2,30 @@
 
 https://markwinton.github.io/activity-card
 
-## routes
+A three.js Strava activity visualizer
+
+## Getting Started
+
+Activity Card is made up of a static React frontend, an Express service and a Postgres database. Follow these steps to run the app locally:
+
+1. Start a Postgres server with the tables below
+
+2. Create a `.env` file in the root directory of the repo with
+
+```
+CLIENT_ID={strava oauth client id}
+CLIENT_SECRET={strava oauth client secret}
+DATABASE_URL=postgress://localhost:5432
+ALLOW_ORIGIN=http://localhost:8080
+SERVICE_URL=http://localhost:3000
+PORT=3000
+```
+
+3. Run `npm run start` to start the service and webpack-dev-server
+
+Learn more about the Strava API at [developers.strava.com](https://developers.strava.com)
+
+## Service
 
 ### POST /auth/authorize/:authorizationCode
 
@@ -68,23 +91,7 @@ Return a user's Strava activities
 
 `speed`: average speed in meters per second
 
-## .env
-
-`CLIENT_ID`: Strava oauth client id
-
-`CLIENT_SECRET`: Strava oauth client secret
-
-`ASSETS_URL`: location of Strava brand images
-
-`SERVICE_URL`: service location
-
-`PORT`: service port
-
-`DATABASE_URL`: postgres location
-
-`ALLOW_ORIGIN`: Access-Control-Allow-Origin
-
-## postgres
+## Postgres
 
 ```
 CREATE TABLE limiters (
