@@ -21,7 +21,9 @@ SERVICE_URL=http://localhost:3000
 PORT=3000
 ```
 
-3. Run `npm run start` to start the service and webpack-dev-server
+3. Run `npm install` to install dependencies
+
+4. Run `npm run start` to start the service and webpack-dev-server
 
 Learn more about the Strava API at [developers.strava.com](https://developers.strava.com)
 
