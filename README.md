@@ -10,7 +10,7 @@ Activity Card is made up of a static React frontend, an Express service and a Po
 
 1. Start a Postgres server with the tables below
 
-2. Create a `.env` file in the root directory of the app with
+2. Create a .env file in the root directory of the app with
 
 ```
 CLIENT_ID={strava oauth client id}
@@ -31,13 +31,13 @@ Learn more about the Strava API at [developers.strava.com](https://developers.st
 
 ### POST /auth/authorize/:authorizationCode
 
-Grant Activity Card access to a user's Strava data
+Add authorization
 
-#### parameters
+__parameters__
 
-`authorizationCode`: OAuth 2.0 authorization code obtained from the Strava API
+authorizationCode: OAuth 2.0 authorization code obtained from the Strava API
 
-#### response
+__response__
 
 ```
 {
@@ -46,31 +46,31 @@ Grant Activity Card access to a user's Strava data
 }
 ```
 
-`token`: session token 
+token: session token 
 
-`name`: Strava user's first name
+name: first name
 
 ### POST /auth/deauthorize
 
-Revoke Activity Card's access to a user's Strava data
+Remove authorization
 
-#### headers
+__headers__
 
 `"Authorization": "Bearer {session token}"`
 
 ### GET /api/v1/activities/:before/:after
 
-Return a user's Strava activities 
+Fetch activities 
 
-#### parameters
+__parameters__
 
-`before`, `after`: unix timestamps for activities in range [`after`, `before`]
+before, after: unix timestamps for activities in range [after, before]
 
-#### headers
+__headers__
 
 `"Authorization": "Bearer {session token}"`
 
-#### response
+__response__
 
 ```
 {
@@ -84,14 +84,14 @@ Return a user's Strava activities
   ]
 }
 ```
+ 
+type: 0=normal, 1=workout, 2=race
 
-`type`: `0`=normal, `1`=workout, `2`=race
+start: start time as unix timestamp
 
-`start`: start time as unix timestamp
+distance: distance in meters
 
-`distance`: distance in meters
-
-`speed`: average speed in meters per second
+speed: average speed in meters per second
 
 ## Postgres
 
