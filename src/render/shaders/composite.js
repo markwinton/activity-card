@@ -1,13 +1,12 @@
-import { AdditiveBlending, ShaderMaterial } from 'three'
+import { AdditiveBlending, ShaderMaterial } from 'three';
 
 export default class extends ShaderMaterial {
-
   constructor() {
     super({
       blending: AdditiveBlending,
       transparent: true,
       uniforms: {
-        'textures': { value: null }
+        textures: { value: null },
       },
       vertexShader: `
         varying vec2 vUv;
@@ -29,8 +28,7 @@ export default class extends ShaderMaterial {
                           texture2D(textures[3], vUv) +
                           texture2D(textures[4], vUv));
         }
-      `
-    })
+      `,
+    });
   }
-  
 }

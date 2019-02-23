@@ -1,13 +1,12 @@
-import { Vector2, ShaderMaterial } from 'three'
+import { Vector2, ShaderMaterial } from 'three';
 
 export default class extends ShaderMaterial {
-
   constructor() {
     super({
       uniforms: {
-        'texture': { value: null },
-        'resolution': { value: new Vector2() },
-        'direction': { value: new Vector2() }
+        texture: { value: null },
+        resolution: { value: new Vector2() },
+        direction: { value: new Vector2() },
       },
       vertexShader: `
         varying vec2 vUv;
@@ -34,8 +33,7 @@ export default class extends ShaderMaterial {
                           (texture2D(texture, vUv + (direction * resolution * -1.0)) * 0.24477) + 
                           (texture2D(texture, vUv + (direction * resolution * -2.0)) * 0.06136));
         }
-      `
-    })
+      `,
+    });
   }
-  
 }

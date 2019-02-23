@@ -32,7 +32,19 @@ body {
 }
 
 a {
-  cursor: pointer;
   text-decoration: none;
   color: dodgerblue;
+}
+
+button {
+  background: transparent;
+  color: dodgerblue;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+button:disabled {
+  color: #eeeeee;
 }
