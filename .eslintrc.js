@@ -12,6 +12,7 @@ module.exports = {
   },
   overrides: [
     {
+      // skip proptypes, allow import from devDependencies
       files: ['src/**'],
       rules: {
         'react/prop-types': 'off',
@@ -19,12 +20,14 @@ module.exports = {
       },
     },
     {
+      // exempt @license comments
       files: ['src/attribution.js'], 
       rules: {
         'max-len': 'off',
       },
     },
     {
+      // exempt chai bdd assertions
       files: ['test/**'],
       rules: {
         'no-unused-expressions': 'off', 
