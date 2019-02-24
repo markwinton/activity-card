@@ -3,7 +3,7 @@ import {
 } from 'three';
 import React from 'react';
 import Composition from './render/composition';
-import Visualization from './render/visualization';
+import Sunflower from './render/sunflower';
 import Touch from './touch';
 import './css/noselect.css';
 import './css/card.css';
@@ -59,7 +59,7 @@ export default class extends React.Component {
 
     const { activities } = this.props;
 
-    this.visualization = new Visualization(activities, this.scene);
+    this.visualization = new Sunflower(activities, this.scene);
     this.composition.fitBoundingBox(this.visualization.boundingBox);
 
     this.animate();
