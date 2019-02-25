@@ -2,15 +2,17 @@
 
 https://markwinton.github.io/activity-card
 
-A three.js Strava activity visualizer
+A Strava activity visualizer
 
 ## Getting Started
 
-Activity Card is made up of a static React frontend, an Express service and a Postgres database. Follow these steps to run the app locally:
+Activity Card is made up of a static React frontend, an Express service and a Postgres database. 
+
+To run the app locally:
 
 1. Start a Postgres server with the tables below
 
-2. Create a .env file in the root directory of the app with
+2. Create a .env file in the app's root directory:
 
 ```
 CLIENT_ID={strava oauth client id}
@@ -24,6 +26,8 @@ PORT=3000
 3. Run `npm install` to install dependencies
 
 4. Run `npm run start` to start the service and webpack-dev-server
+
+5. Open your browser to [localhost:8080](http://localhost:8080)
 
 Learn more about the Strava API at [developers.strava.com](https://developers.strava.com)
 
