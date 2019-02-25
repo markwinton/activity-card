@@ -41,12 +41,12 @@ __parameters__
 
 authorizationCode: OAuth 2.0 authorization code obtained from the Strava API
 
-__response__
+__json response__
 
 ```
 {
-  'token': <string>,
-  'name': <string>
+  "token": <string>,
+  "name": <string>
 }
 ```
 
@@ -74,16 +74,16 @@ __headers__
 
 `"Authorization": "Bearer {session token}"`
 
-__response__
+__json response__
 
 ```
 {
   activities: [
     {
-      'type': <integer>,
-      'start': <integer>,
-      'distance': <float>,
-      'speed': <float>
+      "type": <integer>,
+      "start": <integer>,
+      "distance": <float>,
+      "speed": <float>
     }
   ]
 }
