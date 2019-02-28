@@ -19,11 +19,11 @@ export default class extends React.Component {
   handleDisconnect() {
     this.setState({ deauthorizing: true });
     const token = localStorage.getItem('token');
+    localStorage.removeItem('token');
+    localStorage.removeItem('name');
+    sessionStorage.removeItem('activities');
     deauthorize(token)
       .finally(() => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('name');
-        sessionStorage.removeItem('activities');
         this.setState({ deauthorizing: false, redirect: '/' });
       });
   }
