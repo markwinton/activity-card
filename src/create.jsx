@@ -36,7 +36,7 @@ export default class extends React.Component {
   }
 
   componentDidCatch(error) {
-    if (error.message === 'unauthorized') {
+    if (error && error.message === 'unauthorized') {
       localStorage.removeItem('token');
       localStorage.removeItem('name');
       sessionStorage.removeItem('activities');
