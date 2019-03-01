@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const { Pool } = require('pg');
+const { ServiceError } = require('./lib/error');
 const auth = require('./lib/authorizations');
 const limiter = require('./lib/limiter');
 const strava = require('./lib/strava');
@@ -24,25 +25,40 @@ app.use('/', (request, response, next) => {
   }
 });
 
+const sendErrorResponse = (error, response) => {
+  console.log('ERROR: ' + error);
+  
+  if (error instanceof ServiceError) {
+    if (error.message === 'api tokens exhausted') {
+      response.status(503).json({ error: 'Service Unavailable' });
+    } else if (error.message === 'session token unauthorized') {
+      response.status(401).json({ error: 'Unauthorized' });
+    } else if (error.message === 'access token unauthorized') {
+      response.status(401).json({ error: 'Unauthorized' });
+    }
+  } else {
+    response.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
 app.post('/auth/authorize/:authorizationCode', (request, response) => {
   const { authorizationCode } = request.params;
   const pattern = /^[a-z0-9]+$/;
   if (pattern.test(authorizationCode)) {
     limiter.consume(pool)
-      .then(() => strava.authorize(authorizationCode)
-        .then(({ accessToken, expiration, name }) => auth.add(pool, accessToken, expiration)
-          .then(sessionToken => response.status(200).json({
-            token: sessionToken,
-            name,
-          })))
-        .catch(() => response.status(401).json({ error: 'Unauthorized' })))
-      .catch(() => response.status(503).json({ error: 'Service Unavailable' }));
+      .then(() => strava.authorize(authorizationCode))
+      .then(({ accessToken, expiration, name }) => auth.add(pool, accessToken, expiration)
+        .then(sessionToken => response.status(200).json({
+          token: sessionToken,
+          name,
+        })))
+      .catch(error => sendErrorResponse(error, response));
   } else {
     response.status(400).json({ error: 'Bad Request' });
   }
 });
 
-const guard = (request, response, next) => {
+const guardSessionToken = (request, response, next) => {
   const authorizationHeader = request.get('Authorization') || '';
   const pattern = /^Bearer [a-z0-9]+$/;
   if (pattern.test(authorizationHeader)) {
@@ -52,22 +68,23 @@ const guard = (request, response, next) => {
         request.accessToken = accessToken;
         next();
       })
-      .catch(() => response.status(401).json({ error: 'Unauthorized' }));
+      .catch(error => sendErrorResponse(error, response));
   } else {
     response.status(400).json({ error: 'Bad Request' });
   }
 };
 
-app.use('/auth/deauthorize', guard);
+app.use('/auth/deauthorize', guardSessionToken);
 app.post('/auth/deauthorize', (request, response) => {
   const { accessToken } = request;
   auth.remove(pool, accessToken)
     .then(() => limiter.consume(pool))
     .then(() => strava.deauthorize(accessToken))
-    .finally(() => response.status(200).json({ status: 'Success' }));
+    .then(() => response.status(200).json({ status: 'Success' }))
+    .catch(error => sendErrorResponse(error, response));
 });
 
-app.use('/api/v1/activities/:before/:after', guard);
+app.use('/api/v1/activities/:before/:after', guardSessionToken);
 app.get('/api/v1/activities/:before/:after', (request, response) => {
   const { accessToken, params: { before, after } } = request;
   const pattern = /^[0-9]+$/;
@@ -75,7 +92,7 @@ app.get('/api/v1/activities/:before/:after', (request, response) => {
     limiter.consume(pool)
       .then(() => strava.getActivities(accessToken, before, after))
       .then(activities => response.status(200).json(activities))
-      .catch(() => response.status(503).json({ error: 'Service Unavailable' }));
+      .catch(error => sendErrorResponse(error, response));
   } else {
     response.status(400).json({ error: 'Bad Request' });
   }
