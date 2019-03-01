@@ -1,5 +1,12 @@
 import 'whatwg-fetch';
 
+export class ServiceError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'ServiceError';
+  }
+}
+
 function request(method, url, headers) {
   return new Promise((resolve, reject) => {
     fetch(url, {
@@ -10,12 +17,12 @@ function request(method, url, headers) {
         if (response.status === 200) {
           resolve(response.json());
         } else if (response.status === 401) {
-          reject(Error('unauthorized'));
+          reject(ServiceError('unauthorized'));
         } else {
-          reject();
+          reject(ServiceError('unavailable'));
         }
       })
-      .catch(() => reject());
+      .catch(() => reject(ServiceError('unavailable')));
   });
 }
 
