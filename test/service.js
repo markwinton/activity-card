@@ -59,13 +59,19 @@ function createUnsuccessfulTokenExchangeInterceptor() {
     .reply(401);
 }
 
-function createDeauthorizationInterceptor() {
+function createSuccessfulDeauthorizationInterceptor() {
   nock('https://www.strava.com', { reqheaders: { Authorization: /^Bearer [a-z0-9]+$/ } })
     .post('/oauth/deauthorize')
     .reply(200);
 }
 
-function createActivityRequestInterceptor(count) {
+function createUnauthorizedDeauthorizationInterceptor() {
+  nock('https://www.strava.com', { reqheaders: { Authorization: /^Bearer [a-z0-9]+$/ } })
+    .post('/oauth/deauthorize')
+    .reply(401);
+}
+
+function createSuccessfulActivityRequestInterceptor(count) {
   nock('https://www.strava.com', { reqheaders: { Authorization: /^Bearer [a-z0-9]+$/ } })
     .get('/api/v3/athlete/activities')
     .query({
@@ -134,6 +140,18 @@ function createActivityRequestInterceptor(count) {
       has_kudoed: false,
       suffer_score: 82,
     }));
+}
+
+function createUnauthorizedActivityRequestInterceptor() {
+  nock('https://www.strava.com', { reqheaders: { Authorization: /^Bearer [a-z0-9]+$/ } })
+    .get('/api/v3/athlete/activities')
+    .query({
+      before: /^[0-9]+$/,
+      after: /^[0-9]+$/,
+      page: /^[0-9]+$/,
+      per_page: /^[0-9]+$/,
+    })
+    .reply(401);
 }
 
 describe('service', () => {
@@ -263,8 +281,22 @@ describe('service', () => {
             chai.expect(response.body.error).to.equal('Unauthorized');
           })));
 
+      it('should return 401 with revoked authorization', () => {
+        createUnauthorizedDeauthorizationInterceptor();
+
+        return chai.request(app)
+          .post('/auth/deauthorize')
+          .set('Authorization', `Bearer ${sessionToken}`)
+          .then((response) => {
+            chai.expect(response).to.have.status(401);
+            chai.expect(response).to.be.json;
+            chai.expect(response.body).to.have.keys(['error']);
+            chai.expect(response.body.error).to.equal('Unauthorized');
+          });
+      });
+
       it('should return 200 and revoke authorization with valid authorization header', () => {
-        createDeauthorizationInterceptor();
+        createSuccessfulDeauthorizationInterceptor();
 
         return chai.request(app)
           .post('/auth/deauthorize')
@@ -348,10 +380,24 @@ describe('service', () => {
           chai.expect(response.body.error).to.equal('Bad Request');
         }));
 
+      it('should return 401 with revoked authorization', () => {
+        createUnauthorizedActivityRequestInterceptor();
+
+        return chai.request(app)
+          .get('/api/v1/activities/1549647925/1549647925')
+          .set('Authorization', `Bearer ${sessionToken}`)
+          .then((response) => {
+            chai.expect(response).to.have.status(401);
+            chai.expect(response).to.be.json;
+            chai.expect(response.body).to.have.keys(['error']);
+            chai.expect(response.body.error).to.equal('Unauthorized');
+          });
+      });
+
       it('should return 200 with valid timestamps', () => {
-        createActivityRequestInterceptor(10);
-        createActivityRequestInterceptor(10);
-        createActivityRequestInterceptor(0);
+        createSuccessfulActivityRequestInterceptor(10);
+        createSuccessfulActivityRequestInterceptor(10);
+        createSuccessfulActivityRequestInterceptor(0);
 
         return chai.request(app)
           .get('/api/v1/activities/1549647925/1549647925')
