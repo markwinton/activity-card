@@ -58,7 +58,7 @@ app.post('/auth/authorize/:authorizationCode', (request, response) => {
   }
 });
 
-const guardSessionToken = (request, response, next) => {
+const guardSession = (request, response, next) => {
   const authorizationHeader = request.get('Authorization') || '';
   const pattern = /^Bearer [a-z0-9]+$/;
   if (pattern.test(authorizationHeader)) {
@@ -74,7 +74,7 @@ const guardSessionToken = (request, response, next) => {
   }
 };
 
-app.use('/auth/deauthorize', guardSessionToken);
+app.use('/auth/deauthorize', guardSession);
 app.post('/auth/deauthorize', (request, response) => {
   const { accessToken } = request;
   auth.remove(pool, accessToken)
@@ -84,7 +84,7 @@ app.post('/auth/deauthorize', (request, response) => {
     .catch(error => sendErrorResponse(error, response));
 });
 
-app.use('/api/v1/activities/:before/:after', guardSessionToken);
+app.use('/api/v1/activities/:before/:after', guardSession);
 app.get('/api/v1/activities/:before/:after', (request, response) => {
   const { accessToken, params: { before, after } } = request;
   const pattern = /^[0-9]+$/;
