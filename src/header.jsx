@@ -4,6 +4,16 @@ import { deauthorize } from './service';
 import './css/header.css';
 import './css/logo.css';
 
+const User = ({ name, onClick, disabled }) => (
+  <span>
+    {name}
+    {' | '}
+    <button type="button" onClick={onClick} disabled={disabled}>
+      Disconnect
+    </button>
+  </span>
+);
+
 export default class extends React.Component {
   constructor(props) {
     super(props);
@@ -19,11 +29,11 @@ export default class extends React.Component {
   handleDisconnect() {
     this.setState({ deauthorizing: true });
     const token = localStorage.getItem('token');
-    localStorage.removeItem('token');
-    localStorage.removeItem('name');
-    sessionStorage.removeItem('activities');
     deauthorize(token)
       .finally(() => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('name');
+        sessionStorage.removeItem('activities');
         this.setState({ deauthorizing: false, redirect: '/' });
       });
   }
@@ -33,19 +43,11 @@ export default class extends React.Component {
     if (redirect) {
       return <Redirect to={redirect} />;
     }
-    let user = null;
     const name = localStorage.getItem('name');
     const token = localStorage.getItem('token');
+    let user = null;
     if (token) {
-      user = (
-        <span>
-          {name}
-          {' | '}
-          <button type="button" onClick={this.handleDisconnect} disabled={deauthorizing}>
-            Disconnect
-          </button>
-        </span>
-      );
+      user = <User name={name} onClick={this.handleDisconnect} disabled={deauthorizing} />;
     }
     return (
       <header>
