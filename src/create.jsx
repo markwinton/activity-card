@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Card from './card-loader';
-import { ServiceError } from './service';
+import { AuthorizationError } from './service';
 import './css/card.css';
 import './css/create.css';
 import './css/view-on-strava.css';
@@ -37,7 +37,7 @@ export default class extends React.Component {
   }
 
   componentDidCatch(error) {
-    if (error instanceof ServiceError && error.message === 'unauthorized') {
+    if (error instanceof AuthorizationError) {
       localStorage.removeItem('token');
       localStorage.removeItem('name');
       sessionStorage.removeItem('activities');

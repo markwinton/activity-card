@@ -1,9 +1,9 @@
 import 'whatwg-fetch';
 
-export class ServiceError extends Error {
+export class AuthorizationError extends Error {
   constructor(message) {
     super(message);
-    this.name = 'ServiceError';
+    this.name = 'AuthorizationError';
   }
 }
 
@@ -17,9 +17,9 @@ function request(method, url, headers) {
         return response.json();
       }
       if (response.status === 401) {
-        throw ServiceError('unauthorized');
+        throw new AuthorizationError('request authorization failed');
       }
-      throw ServiceError('unavailable');
+      throw new Error('service unavailable');
     });
 }
 
