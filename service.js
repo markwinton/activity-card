@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const { Pool } = require('pg');
-const { ServiceError } = require('./lib/error');
+const { AuthorizationError, ResourceError } = require('./lib/error');
 const auth = require('./lib/authorizations');
 const limiter = require('./lib/limiter');
 const strava = require('./lib/strava');
@@ -27,15 +27,11 @@ app.use('/', (request, response, next) => {
 
 const sendErrorResponse = (error, response) => {
   console.log('ERROR: ' + error);
-  
-  if (error instanceof ServiceError) {
-    if (error.message === 'api tokens exhausted') {
-      response.status(503).json({ error: 'Service Unavailable' });
-    } else if (error.message === 'session token unauthorized') {
-      response.status(401).json({ error: 'Unauthorized' });
-    } else if (error.message === 'access token unauthorized') {
-      response.status(401).json({ error: 'Unauthorized' });
-    }
+
+  if (error instanceof AuthorizationError) {
+    response.status(401).json({ error: 'Unauthorized' });
+  } else if (error instanceof ResourceError) {
+    response.status(503).json({ error: 'Service Unavailable' });
   } else {
     response.status(500).json({ error: 'Internal Server Error' });
   }
