@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import { AuthorizationError } from '../error';
+import { ResourceError, AuthorizationError } from '../error';
 
 function request(method, url, headers) {
   return fetch(url, {
@@ -11,9 +11,9 @@ function request(method, url, headers) {
         return response.json();
       }
       if (response.status === 401) {
-        throw new AuthorizationError('request authorization failed');
+        throw new AuthorizationError('service authorization failed');
       }
-      throw new Error('service unavailable');
+      throw new ResourceError('service unavailable');
     });
 }
 
