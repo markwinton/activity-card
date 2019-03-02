@@ -13,10 +13,7 @@ function request(method, url, headers) {
       if (response.status === 401) {
         throw new AuthorizationError('service returned 401 - unauthorized');
       }
-      if (response.status === 503) {
-        throw new ResourceError('service returned 503 - unavailable');
-      }
-      throw new ResourceError('service returned unknown error');
+      throw new ResourceError(`service returned ${response.status} - ${response.statusText}`);
     });
 }
 
