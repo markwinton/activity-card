@@ -26,8 +26,6 @@ app.use('/', (request, response, next) => {
 });
 
 const sendErrorResponse = (error, response) => {
-  console.log('ERROR: ' + error);
-
   if (error instanceof AuthorizationError) {
     response.status(401).json({ error: 'Unauthorized' });
   } else if (error instanceof ResourceError) {
