@@ -15,6 +15,13 @@ const withHeader = Component => props => (
   </React.Fragment>
 );
 
+const withFooter = Component => props => (
+  <React.Fragment>
+    <Component {...props} />
+    <Footer />
+  </React.Fragment>
+);
+
 const withErrorBoundary = Component => props => (
   <ErrorBoundary>
     <Component {...props} />
@@ -26,11 +33,10 @@ const tokenGuarded = Component => () => (localStorage.getItem('token') ? <Compon
 export default () => (
   <HashRouter>
     <React.Fragment>
-      <Route exact path="/" component={tokenGuarded(withErrorBoundary(withHeader(Create)))} />
-      <Route path="/connect" component={withErrorBoundary(Connect)} />
-      <Route path="/contact" component={withErrorBoundary(withHeader(Contact))} />
-      <Route path="/privacy" component={withErrorBoundary(withHeader(Privacy))} />
-      <Footer />
+      <Route exact path="/" component={tokenGuarded(withErrorBoundary(withHeader(withFooter(Create))))} />
+      <Route path="/connect" component={withErrorBoundary(withFooter(Connect))} />
+      <Route path="/contact" component={withErrorBoundary(withHeader(withFooter(Contact)))} />
+      <Route path="/privacy" component={withErrorBoundary(withHeader(withFooter(Privacy)))} />
     </React.Fragment>
   </HashRouter>
 );
