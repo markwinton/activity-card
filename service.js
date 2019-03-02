@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const { Pool } = require('pg');
-const { AuthorizationError, ResourceError } = require('./errors');
+const { InputError, AuthorizationError, ResourceError } = require('./errors');
 const auth = require('./lib/authorizations');
 const limiter = require('./lib/limiter');
 const strava = require('./lib/strava');
@@ -25,8 +25,19 @@ app.use('/', (request, response, next) => {
   }
 });
 
+const validate = (string, pattern) => {
+  return new Promise((resolve, reject) => {
+    if (pattern.test(string)) {
+      resolve(string);
+    }
+    reject(new InputError(`${string} does not match pattern ${pattern}`));
+  });
+};
+
 const sendErrorResponse = (error, response) => {
-  if (error instanceof AuthorizationError) {
+  if (error instanceof InputError) {
+    response.status(400).json({ error: 'Bad Request' });
+  } else if (error instanceof AuthorizationError) {
     response.status(401).json({ error: 'Unauthorized' });
   } else if (error instanceof ResourceError) {
     response.status(503).json({ error: 'Service Unavailable' });
@@ -37,35 +48,27 @@ const sendErrorResponse = (error, response) => {
 
 app.post('/auth/authorize/:authorizationCode', (request, response) => {
   const { authorizationCode } = request.params;
-  const pattern = /^[a-z0-9]+$/;
-  if (pattern.test(authorizationCode)) {
-    limiter.consume(pool)
-      .then(() => strava.authorize(authorizationCode))
-      .then(({ accessToken, expiration, name }) => auth.add(pool, accessToken, expiration)
-        .then(sessionToken => response.status(200).json({
-          token: sessionToken,
-          name,
-        })))
-      .catch(error => sendErrorResponse(error, response));
-  } else {
-    response.status(400).json({ error: 'Bad Request' });
-  }
+  validate(authorizationCode, /^[a-z0-9]+$/)
+    .then(() => limiter.consume(pool))
+    .then(() => strava.authorize(authorizationCode))
+    .then(({ accessToken, expiration, name }) => auth.add(pool, accessToken, expiration)
+      .then(sessionToken => response.status(200).json({
+        token: sessionToken,
+        name,
+      })))
+    .catch(error => sendErrorResponse(error, response));
 });
 
 const guardSession = (request, response, next) => {
   const authorizationHeader = request.get('Authorization') || '';
-  const pattern = /^Bearer [a-z0-9]+$/;
-  if (pattern.test(authorizationHeader)) {
-    const sessionToken = authorizationHeader.substring(7);
-    auth.accessToken(pool, sessionToken)
-      .then((accessToken) => {
-        request.accessToken = accessToken;
-        next();
-      })
-      .catch(error => sendErrorResponse(error, response));
-  } else {
-    response.status(400).json({ error: 'Bad Request' });
-  }
+  validate(authorizationHeader, /^Bearer [a-z0-9]+$/)
+    .then(header => authorizationHeader.substring(7))
+    .then(sessionToken => auth.accessToken(pool, sessionToken))
+    .then((accessToken) => {
+      request.accessToken = accessToken;
+      next();
+    })
+    .catch(error => sendErrorResponse(error, response));
 };
 
 app.use('/auth/deauthorize', guardSession);
@@ -81,15 +84,12 @@ app.post('/auth/deauthorize', (request, response) => {
 app.use('/api/v1/activities/:before/:after', guardSession);
 app.get('/api/v1/activities/:before/:after', (request, response) => {
   const { accessToken, params: { before, after } } = request;
-  const pattern = /^[0-9]+$/;
-  if (pattern.test(before) && pattern.test(after)) {
-    limiter.consume(pool)
-      .then(() => strava.getActivities(accessToken, before, after))
-      .then(activities => response.status(200).json(activities))
-      .catch(error => sendErrorResponse(error, response));
-  } else {
-    response.status(400).json({ error: 'Bad Request' });
-  }
+  validate(before, /^[0-9]+$/)
+    .then(() => validate(after, /^[0-9]+$/))
+    .then(() => limiter.consume(pool))
+    .then(() => strava.getActivities(accessToken, before, after))
+    .then(activities => response.status(200).json(activities))
+    .catch(error => sendErrorResponse(error, response));
 });
 
 app.listen(process.env.PORT);

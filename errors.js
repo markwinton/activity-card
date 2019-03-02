@@ -12,7 +12,15 @@ class ResourceError extends Error {
   }
 }
 
+class InputError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = 'InputError';
+  }
+}
+
 module.exports = {
   AuthorizationError,
   ResourceError,
+  InputError,
 };
