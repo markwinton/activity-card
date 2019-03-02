@@ -19,7 +19,7 @@ export default class extends React.Component {
       localStorage.removeItem('token');
       localStorage.removeItem('name');
       sessionStorage.removeItem('activities');
-      this.setState({ error, redirect: '/' });
+      this.setState({ redirect: '/' });
     } else {
       this.setState({ error });
     }
@@ -28,15 +28,15 @@ export default class extends React.Component {
   render() {
     const { error, redirect } = this.state;
     const { children } = this.props;
-    if (redirect) {
-      return <Redirect to={redirect} />;
-    }
     if (error) {
       return (
         <section className="error information">
           <p>Activity Card is unavailable at the moment. Please try again later.</p>
         </section>
       );
+    }
+    if (redirect) {
+      return <Redirect to={redirect} />;
     }
     return children;
   }
