@@ -8,7 +8,7 @@ export default class extends React.Component {
     super(props);
 
     this.state = {
-      error: false,
+      hasError: false,
     };
   }
 
@@ -18,13 +18,13 @@ export default class extends React.Component {
       localStorage.removeItem('name');
       sessionStorage.removeItem('activities');
     }
-    this.setState({ error: true });
+    this.setState({ hasError: true });
   }
 
   render() {
-    const { error } = this.state;
+    const { hasError } = this.state;
     const { children } = this.props;
-    if (error) {
+    if (hasError) {
       return (
         <section className="error information">
           <p>Activity Card is unavailable at the moment. Please try again later.</p>
