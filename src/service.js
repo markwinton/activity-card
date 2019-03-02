@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import { ResourceError, AuthorizationError } from '../errors';
+import { ResourceError, AuthorizationError } from '../error';
 
 function request(method, url, headers) {
   return fetch(url, {

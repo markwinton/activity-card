@@ -1,7 +1,7 @@
 const chai = require('chai');
 const moment = require('moment');
 const { Pool } = require('pg');
-const { ResourceError } = require('../errors');
+const { ResourceError } = require('../error');
 const limiter = require('../lib/limiter');
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
