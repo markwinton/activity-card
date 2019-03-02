@@ -8,7 +8,7 @@ class AuthorizationError extends Error {
 class ResourceError extends Error {
   constructor(message) {
     super(message);
-    this.name = 'AuthorizationError';
+    this.name = 'ResourceError';
   }
 }
 
