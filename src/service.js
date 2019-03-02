@@ -11,7 +11,7 @@ function request(method, url, headers) {
         return response.json();
       }
       if (response.status === 401) {
-        throw new AuthorizationError('service authorization failed');
+        throw new AuthorizationError('service request unauthorized');
       }
       throw new ResourceError('service unavailable');
     });
