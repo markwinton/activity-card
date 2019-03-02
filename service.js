@@ -62,7 +62,7 @@ app.post('/auth/authorize/:authorizationCode', (request, response) => {
 const guardSession = (request, response, next) => {
   const authorizationHeader = request.get('Authorization') || '';
   validate(authorizationHeader, /^Bearer [a-z0-9]+$/)
-    .then(header => authorizationHeader.substring(7))
+    .then(header => header.substring(7))
     .then(sessionToken => auth.accessToken(pool, sessionToken))
     .then((accessToken) => {
       request.accessToken = accessToken;
