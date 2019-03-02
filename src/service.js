@@ -16,7 +16,7 @@ function request(method, url, headers) {
       if (response.status === 503) {
         throw new ResourceError('service returned 503 - unavailable');
       }
-      throw new ResourceError('service unknown error');
+      throw new ResourceError('service returned unknown error');
     });
 }
 
