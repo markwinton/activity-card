@@ -19,8 +19,9 @@ export default class extends React.Component {
     super(props);
 
     this.state = {
-      deauthorizing: false,
+      error: null,
       redirect: null,
+      deauthorizing: false,
     };
 
     this.handleDisconnect = this.handleDisconnect.bind(this);
@@ -30,6 +31,7 @@ export default class extends React.Component {
     this.setState({ deauthorizing: true });
     const token = localStorage.getItem('token');
     deauthorize(token)
+      .catch(error => this.setState({ deauthorizing: false, error }))
       .finally(() => {
         localStorage.removeItem('token');
         localStorage.removeItem('name');
@@ -39,7 +41,10 @@ export default class extends React.Component {
   }
 
   render() {
-    const { redirect, deauthorizing } = this.state;
+    const { error, redirect, deauthorizing } = this.state;
+    if (error) {
+      throw error;
+    }
     if (redirect) {
       return <Redirect to={redirect} />;
     }
