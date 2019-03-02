@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import Card from './card-loader';
-import { AuthorizationError } from '../error';
+import { AuthorizationError } from '../errors';
 import './css/card.css';
 import './css/create.css';
 import './css/view-on-strava.css';

@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const { Pool } = require('pg');
-const { AuthorizationError, ResourceError } = require('./error');
+const { AuthorizationError, ResourceError } = require('./errors');
 const auth = require('./lib/authorizations');
 const limiter = require('./lib/limiter');
 const strava = require('./lib/strava');
