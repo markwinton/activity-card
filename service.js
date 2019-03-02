@@ -25,14 +25,12 @@ app.use('/', (request, response, next) => {
   }
 });
 
-const validate = (string, pattern) => {
-  return new Promise((resolve, reject) => {
-    if (pattern.test(string)) {
-      resolve(string);
-    }
-    reject(new InputError(`${string} does not match pattern ${pattern}`));
-  });
-};
+const validate = (string, pattern) => new Promise((resolve, reject) => {
+  if (pattern.test(string)) {
+    resolve(string);
+  }
+  reject(new InputError(`${string} does not match pattern ${pattern}`));
+});
 
 const sendErrorResponse = (error, response) => {
   if (error instanceof InputError) {
