@@ -7,7 +7,7 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { hasError: false, error: null };
+    this.state = { error: null };
 
     this.card = React.createRef();
   }
@@ -17,9 +17,8 @@ export default class extends React.Component {
   }
 
   render() {
-    const { hasError } = this.state;
-    if (hasError) {
-      const { error } = this.state;
+    const { error } = this.state;
+    if (error) {
       throw error;
     }
     const cachedActivities = sessionStorage.getItem('activities');
@@ -27,7 +26,7 @@ export default class extends React.Component {
       const { token, before, after } = this.props;
       throw getActivities(token, before, after)
         .then(({ activities }) => sessionStorage.setItem('activities', JSON.stringify(activities)))
-        .catch(error => this.setState({ hasError: true, error }));
+        .catch(err => this.setState({ error: err }));
     }
     return <Card activities={JSON.parse(cachedActivities)} ref={this.card} />;
   }

@@ -37,6 +37,7 @@ export default class extends React.Component {
     super(props);
 
     this.state = {
+      error: null,
       redirect: null,
       authorizing: false,
     };
@@ -55,14 +56,17 @@ export default class extends React.Component {
           localStorage.setItem('name', name);
           this.setState({ authorizing: false, redirect: '/' });
         })
-        .catch(() => this.setState({ authorizing: false, redirect: '/error' }));
+        .catch(error => this.setState({ authorizing: false, error }));
     }
 
     sessionStorage.removeItem('authorization_state');
   }
 
   render() {
-    const { redirect, authorizing } = this.state;
+    const { error, redirect, authorizing } = this.state;
+    if (error) {
+      throw error;
+    }
     if (redirect) {
       return <Redirect to={redirect} />;
     }
