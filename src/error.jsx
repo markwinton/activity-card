@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { AuthorizationError } from '../error';
 import './css/information.css';
 import './css/error.css';
@@ -8,7 +9,8 @@ export default class extends React.Component {
     super(props);
 
     this.state = {
-      hasError: false,
+      error: null,
+      redirect: null,
     };
   }
 
@@ -17,14 +19,19 @@ export default class extends React.Component {
       localStorage.removeItem('token');
       localStorage.removeItem('name');
       sessionStorage.removeItem('activities');
+      this.setState({ error, redirect: '/' });
+    } else {
+      this.setState({ error });
     }
-    this.setState({ hasError: true });
   }
 
   render() {
-    const { hasError } = this.state;
+    const { error, redirect } = this.state;
     const { children } = this.props;
-    if (hasError) {
+    if (redirect) {
+      return <Redirect to={redirect} />;
+    }
+    if (error) {
       return (
         <section className="error information">
           <p>Activity Card is unavailable at the moment. Please try again later.</p>
