@@ -1,11 +1,5 @@
 import 'whatwg-fetch';
-
-export class AuthorizationError extends Error {
-  constructor(message) {
-    super(message);
-    this.name = 'AuthorizationError';
-  }
-}
+import { AuthorizationError } from '../error';
 
 function request(method, url, headers) {
   return fetch(url, {
