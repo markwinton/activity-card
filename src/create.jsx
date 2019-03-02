@@ -1,8 +1,6 @@
 import moment from 'moment';
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import Card from './card-loader';
-import { AuthorizationError } from '../error';
 import './css/card.css';
 import './css/create.css';
 import './css/view-on-strava.css';
@@ -22,7 +20,6 @@ export default class extends React.Component {
 
     this.state = {
       exporting: false,
-      redirect: null,
     };
 
     this.card = React.createRef();
@@ -36,17 +33,6 @@ export default class extends React.Component {
     this.token = localStorage.getItem('token');
   }
 
-  componentDidCatch(error) {
-    if (error instanceof AuthorizationError) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('name');
-      sessionStorage.removeItem('activities');
-      this.setState({ redirect: '/' });
-    } else {
-      this.setState({ redirect: '/error' });
-    }
-  }
-
   handleSave() {
     this.setState({ exporting: true });
     this.card.current.exportImage(EXPORT_SIZE, EXPORT_SIZE, (url) => {
@@ -58,10 +44,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const { redirect, exporting } = this.state;
-    if (redirect) {
-      return <Redirect to={redirect} />;
-    }
+    const { exporting } = this.state;
     return (
       <section className="create">
         <React.Suspense fallback={<Placeholder />}>
