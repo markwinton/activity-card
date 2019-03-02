@@ -8,23 +8,29 @@ import Contact from './contact';
 import Privacy from './privacy';
 import ErrorBoundary from './error';
 
-const withHeader = Component => () => (
+const withHeader = Component => props => (
   <React.Fragment>
     <Header />
-    <Component />
+    <Component {...props} />
   </React.Fragment>
+);
+
+const withErrorBoundary = Component => props => (
+  <ErrorBoundary>
+    <Component {...props} />
+  </ErrorBoundary>
 );
 
 const tokenGuarded = Component => () => (localStorage.getItem('token') ? <Component /> : <Redirect to="/connect" />);
 
 export default () => (
   <HashRouter>
-    <ErrorBoundary>
-      <Route exact path="/" component={tokenGuarded(withHeader(Create))} />
-      <Route path="/connect" component={Connect} />
-      <Route path="/contact" component={withHeader(Contact)} />
-      <Route path="/privacy" component={withHeader(Privacy)} />
+    <React.Fragment>
+      <Route exact path="/" component={tokenGuarded(withErrorBoundary(withHeader(Create)))} />
+      <Route path="/connect" component={withErrorBoundary(Connect)} />
+      <Route path="/contact" component={withErrorBoundary(withHeader(Contact))} />
+      <Route path="/privacy" component={withErrorBoundary(withHeader(Privacy))} />
       <Footer />
-    </ErrorBoundary>
+    </React.Fragment>
   </HashRouter>
 );
