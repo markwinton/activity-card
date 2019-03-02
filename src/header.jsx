@@ -31,12 +31,12 @@ export default class extends React.Component {
     this.setState({ deauthorizing: true });
     const token = localStorage.getItem('token');
     deauthorize(token)
+      .then(() => this.setState({ deauthorizing: false, redirect: '/' }))
       .catch(error => this.setState({ deauthorizing: false, error }))
       .finally(() => {
         localStorage.removeItem('token');
         localStorage.removeItem('name');
         sessionStorage.removeItem('activities');
-        this.setState({ deauthorizing: false, redirect: '/' });
       });
   }
 
