@@ -19,7 +19,7 @@ export default class extends React.Component {
       localStorage.removeItem('token');
       localStorage.removeItem('name');
       sessionStorage.removeItem('activities');
-      this.setState({ redirect: '/' });
+      this.setState({ redirect: '/connect' });
     } else {
       this.setState({ error });
     }
