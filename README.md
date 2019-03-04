@@ -25,7 +25,7 @@ PORT=3000
 
 3. Run `npm install` to install dependencies
 
-4. Run `npm run start` to start the service and webpack-dev-server
+4. Run `npm run start:dev` to start the service and webpack-dev-server
 
 5. Open your browser to [localhost:8080](http://localhost:8080)
 
