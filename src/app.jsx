@@ -8,6 +8,20 @@ import Contact from './contact';
 import Privacy from './privacy';
 import ErrorBoundary from './error';
 
+ga('set', 'anonymizeIp', true);
+ga('create', env.GA_TRACKING_ID, 'auto');
+
+const withTracker = Component => class extends React.Component {
+  componentDidMount() {
+    const { location } = this.props;
+    ga('send', 'pageview', location.pathname);
+  }
+
+  render() {
+    return <Component {...this.props} />;
+  }
+}
+
 const withHeader = Component => props => (
   <React.Fragment>
     <Header />
@@ -38,10 +52,10 @@ const tokenGuarded = Component => (props) => {
 export default () => (
   <HashRouter>
     <React.Fragment>
-      <Route exact path="/" component={tokenGuarded(withErrorBoundary(withHeader(withFooter(Create))))} />
-      <Route path="/connect" component={withErrorBoundary(withFooter(Connect))} />
-      <Route path="/contact" component={withErrorBoundary(withHeader(withFooter(Contact)))} />
-      <Route path="/privacy" component={withErrorBoundary(withHeader(withFooter(Privacy)))} />
+      <Route exact path="/" component={tokenGuarded(withErrorBoundary(withTracker(withHeader(withFooter(Create)))))} />
+      <Route path="/connect" component={withErrorBoundary(withTracker(withFooter(Connect)))} />
+      <Route path="/contact" component={withErrorBoundary(withTracker(withHeader(withFooter(Contact))))} />
+      <Route path="/privacy" component={withErrorBoundary(withTracker(withHeader(withFooter(Privacy))))} />
     </React.Fragment>
   </HashRouter>
 );

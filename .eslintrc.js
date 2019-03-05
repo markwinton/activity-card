@@ -9,6 +9,7 @@ module.exports = {
   extends: 'airbnb',
   globals: {
     'env': 'readonly',
+    'ga': 'readonly',
   },
   overrides: [
     {

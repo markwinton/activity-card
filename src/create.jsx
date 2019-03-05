@@ -40,6 +40,7 @@ export default class extends React.Component {
       this.downloadLink.current.download = 'card.png';
       this.downloadLink.current.click();
       this.setState({ exporting: false });
+      ga('send', 'event', 'Card', 'share', 'sunflower', EXPORT_SIZE);
     });
   }
 
