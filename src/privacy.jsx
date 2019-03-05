@@ -16,5 +16,11 @@ export default () => (
       You can revoke Activity Card&#39;s access to your Strava data at any time from the My
       Apps section of your Strava account settings.
     </p>
+    <h2>Google Analytics</h2>
+    <p>
+      Activity card uses Google Analytics in order to track page views and other usage
+      information for this website. Your Strava data is not included in this usage
+      information, and is never shared with Google.
+    </p>
   </section>
 );
