@@ -8,10 +8,7 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      error: null,
-      redirect: null,
-    };
+    this.state = { error: null };
   }
 
   componentDidCatch(error) {
@@ -19,24 +16,16 @@ export default class extends React.Component {
       localStorage.removeItem('token');
       localStorage.removeItem('name');
       sessionStorage.removeItem('activities');
-      this.setState({ redirect: '/connect' });
-    } else {
       this.setState({ error });
     }
+    throw error;
   }
 
   render() {
-    const { error, redirect } = this.state;
+    const { error } = this.state;
     const { children } = this.props;
-    if (error) {
-      return (
-        <section className="error information">
-          <p>Activity Card is unavailable at the moment. Please try again later.</p>
-        </section>
-      );
-    }
-    if (redirect) {
-      return <Redirect to={redirect} />;
+    if (error || !localStorage.getItem('token')) {
+      return <Redirect to="/connect" />;
     }
     return children;
   }
