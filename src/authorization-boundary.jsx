@@ -17,8 +17,9 @@ export default class extends React.Component {
       localStorage.removeItem('name');
       sessionStorage.removeItem('activities');
       this.setState({ error });
+    } else {
+      throw error;
     }
-    throw error;
   }
 
   render() {
