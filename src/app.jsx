@@ -28,7 +28,12 @@ const withErrorBoundary = Component => props => (
   </ErrorBoundary>
 );
 
-const tokenGuarded = Component => () => (localStorage.getItem('token') ? <Component /> : <Redirect to="/connect" />);
+const tokenGuarded = Component => (props) => {
+  if (localStorage.getItem('token')) {
+    return <Component {...props} />;
+  }
+  return <Redirect to="/connect" />;
+};
 
 export default () => (
   <HashRouter>
