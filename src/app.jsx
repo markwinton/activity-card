@@ -20,7 +20,7 @@ const withTracker = Component => class extends React.Component {
   render() {
     return <Component {...this.props} />;
   }
-}
+};
 
 const withHeader = Component => props => (
   <React.Fragment>
