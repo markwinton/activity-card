@@ -1,8 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { AuthorizationError } from '../error';
-import './css/information.css';
-import './css/error.css';
 
 export default class extends React.Component {
   constructor(props) {
