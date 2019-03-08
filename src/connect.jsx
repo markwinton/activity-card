@@ -16,7 +16,7 @@ const connect = () => {
 
   const redirect = encodeURIComponent(window.location.href.split('?')[0]);
 
-  window.location.href = `https://www.strava.com/oauth/mobile/authorize?response_type=code&state=${state}&client_id=${env.CLIENT_ID}&redirect_uri=${redirect}&scope=${SCOPE}`;
+  window.location.href = `https://www.strava.com/oauth/authorize?response_type=code&state=${state}&client_id=${env.CLIENT_ID}&redirect_uri=${redirect}&scope=${SCOPE}`;
 };
 
 const ConnectButton = ({ onClick }) => (
