@@ -12,7 +12,7 @@ const SCOPE = 'activity:read_all';
 
 const connect = () => {
   const state = generateToken();
-  sessionStorage.setItem('authorization_state', state);
+  localStorage.setItem('authorization_state', state);
 
   const redirect = encodeURIComponent(window.location.href.split('?')[0]);
 
@@ -48,7 +48,7 @@ export default class extends React.Component {
     const { code, state, scope } = queryString.parse(search);
     const scopes = scope ? scope.split(',') : [];
 
-    if (code && state === sessionStorage.getItem('authorization_state') && scopes.includes(SCOPE)) {
+    if (code && state === localStorage.getItem('authorization_state') && scopes.includes(SCOPE)) {
       this.setState({ authorizing: true });
       authorize(code)
         .then(({ token, name }) => {
@@ -59,7 +59,7 @@ export default class extends React.Component {
         .catch(error => this.setState({ authorizing: false, error }));
     }
 
-    sessionStorage.removeItem('authorization_state');
+    localStorage.removeItem('authorization_state');
   }
 
   render() {
