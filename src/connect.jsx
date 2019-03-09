@@ -14,7 +14,11 @@ const connect = () => {
   const state = generateToken();
   localStorage.setItem('authorization_state', state);
 
-  const redirect = encodeURIComponent(window.location.href.split('?')[0]);
+  let redirect = `${window.location.protocol}//${window.location.hostname}`;
+  if (window.location.port) {
+    redirect += `:${window.location.port}`;
+  }
+  redirect = encodeURIComponent(redirect);
 
   window.location.href = `https://www.strava.com/oauth/authorize?response_type=code&state=${state}&client_id=${env.CLIENT_ID}&redirect_uri=${redirect}&scope=${SCOPE}`;
 };
@@ -44,8 +48,7 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    const { location: { search } } = this.props;
-    const { code, state, scope } = queryString.parse(search);
+    const { code, state, scope } = queryString.parse(window.location.search);
     const scopes = scope ? scope.split(',') : [];
 
     if (code && state === localStorage.getItem('authorization_state') && scopes.includes(SCOPE)) {
