@@ -18,6 +18,7 @@ const connect = () => {
   if (window.location.port) {
     redirect += `:${window.location.port}`;
   }
+  redirect += window.location.pathname;
   redirect = encodeURIComponent(redirect);
 
   window.location.href = `https://www.strava.com/oauth/authorize?response_type=code&state=${state}&client_id=${env.CLIENT_ID}&redirect_uri=${redirect}&scope=${SCOPE}`;
