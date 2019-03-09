@@ -37,14 +37,19 @@ const withPageView = Component => props => (
   <PageView component={Component} {...props} />
 );
 
+const connect = withPageView(withFooter(Connect));
+const create = withAuthorizationBoundary(withPageView(withHeader(withFooter(Create))));
+const contact = withPageView(withHeader(withFooter(Contact)));
+const privacy = withPageView(withHeader(withFooter(Privacy)));
+
 export default () => (
   <ErrorBoundary>
     <HashRouter>
       <React.Fragment>
-        <Route exact path="/" component={withAuthorizationBoundary(withPageView(withHeader(withFooter(Create))))} />
-        <Route path="/connect" component={withPageView(withFooter(Connect))} />
-        <Route path="/contact" component={withPageView(withHeader(withFooter(Contact)))} />
-        <Route path="/privacy" component={withPageView(withHeader(withFooter(Privacy)))} />
+        <Route exact path="/" component={create} />
+        <Route path="/connect" component={connect} />
+        <Route path="/contact" component={contact} />
+        <Route path="/privacy" component={privacy} />
       </React.Fragment>
     </HashRouter>
   </ErrorBoundary>
