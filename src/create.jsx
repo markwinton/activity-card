@@ -35,12 +35,18 @@ export default class extends React.Component {
 
   handleSave() {
     this.setState({ exporting: true });
-    this.card.current.exportImage(EXPORT_SIZE, EXPORT_SIZE, (url) => {
+    this.card.current.exportImage(EXPORT_SIZE, EXPORT_SIZE, (blob) => {
+      const url = URL.createObjectURL(blob);
+
       this.downloadLink.current.href = url;
       this.downloadLink.current.download = 'card.png';
       this.downloadLink.current.click();
       this.setState({ exporting: false });
+
       ga('send', 'event', 'Card', 'share', 'sunflower', EXPORT_SIZE);
+
+      // prevent url being revoked before download finished
+      setTimeout(() => URL.revokeObjectURL(url), 0);
     });
   }
 

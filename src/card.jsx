@@ -85,11 +85,7 @@ export default class extends React.Component {
 
     composition.render(webGLRenderer);
 
-    webGLRenderer.domElement.toBlob((blob) => {
-      const url = URL.createObjectURL(blob);
-      callback(url);
-      URL.revokeObjectURL(url);
-    });
+    webGLRenderer.domElement.toBlob(callback);
   }
 
   render() {
