@@ -13,13 +13,16 @@
 }
 
 .connect > .title {
-  margin: 26px 0 0 0;
+  margin: 26px 26px 0 26px;
   font-size: 4em;
   font-weight: 300;
+  text-align: center;
 }
 
 .connect > .description {
+  margin: 20px 26px 0 26px;
   font-size: 1.2em;
+  text-align: center;
 }
 
 .connect > button > .connect-strava {
