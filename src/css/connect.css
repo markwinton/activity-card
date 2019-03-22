@@ -5,6 +5,7 @@
   width: 100%;
   color: #ffffff;
   background-color: #000209;
+  overflow: hidden;
 }
 
 .connect > .preview {
