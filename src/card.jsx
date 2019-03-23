@@ -72,9 +72,9 @@ export default class extends React.Component {
 
   layout() {
     const height = this.container.current.offsetHeight;
-    
+
     this.webGLRenderer.setSize(height, height);
-    
+
     const bufferSize = this.webGLRenderer.getDrawingBufferSize();
     this.composition.setSize(bufferSize.width, bufferSize.height);
   }
