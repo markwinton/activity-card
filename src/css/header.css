@@ -16,15 +16,32 @@ header > ul {
 
 header > ul > li {
   display: block;
-  line-height: 80px;
 }
 
 header > ul > li.left {
   float: left;
-  padding: 0 16px 0 0;
 }
 
 header > ul > li.right {
   float: right;
-  padding: 0 0 0 16px;
+}
+
+header > ul > li > .logo {
+  line-height: 80px;
+  color: inherit;
+}
+
+header > ul > li > .user {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 45vw;
+  height: 80px;
+  text-overflow: ellipsis;
+  text-align: right;
+  overflow: hidden;
+}
+
+header > ul > li > .user > button {
+  text-align: right;
 }

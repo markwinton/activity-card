@@ -5,13 +5,12 @@ import './css/header.css';
 import './css/logo.css';
 
 const User = ({ name, onClick, disabled }) => (
-  <span>
+  <div className="user">
     {name}
-    {' | '}
     <button type="button" onClick={onClick} disabled={disabled}>
       Disconnect
     </button>
-  </span>
+  </div>
 );
 
 export default class extends React.Component {
