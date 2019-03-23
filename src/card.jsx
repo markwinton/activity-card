@@ -33,17 +33,11 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    const height = this.container.current.offsetHeight;
-
     this.webGLRenderer = new WebGLRenderer();
     this.webGLRenderer.autoClear = false;
     this.webGLRenderer.setClearColor(0x000000, 0);
-    this.webGLRenderer.setSize(height, height);
     this.webGLRenderer.setPixelRatio(window.devicePixelRatio);
     this.container.current.appendChild(this.webGLRenderer.domElement);
-
-    const bufferSize = this.webGLRenderer.getDrawingBufferSize();
-    this.composition.setSize(bufferSize.width, bufferSize.height);
 
     this.logo = new Mesh(
       new PlaneGeometry(LOGO.width, LOGO.height),
@@ -62,7 +56,27 @@ export default class extends React.Component {
     this.visualization = new Sunflower(activities, this.scene);
     this.composition.fitBoundingBox(this.visualization.boundingBox);
 
+    let timer = null;
+    this.resizeListener = window.addEventListener('resize', () => {
+      clearInterval(timer);
+      timer = setTimeout(this.layout.bind(this), 200);
+    });
+
+    this.layout();
     this.animate();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(this.resizeListener);
+  }
+
+  layout() {
+    const height = this.container.current.offsetHeight;
+    
+    this.webGLRenderer.setSize(height, height);
+    
+    const bufferSize = this.webGLRenderer.getDrawingBufferSize();
+    this.composition.setSize(bufferSize.width, bufferSize.height);
   }
 
   animate() {
