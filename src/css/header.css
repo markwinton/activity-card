@@ -5,7 +5,13 @@ header {
 
 header > ul {
   margin: 0;
-  padding: 0 30px 0 30px;
+  padding: 0 20px 0 20px;
+}
+
+@media (min-width: 400px) {
+  header > ul {
+    padding: 0 30px 0 30px;
+  }
 }
 
 header > ul > li {
