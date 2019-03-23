@@ -15,7 +15,7 @@
 
 .connect > .title {
   margin: 26px 26px 0 26px;
-  font-size: 4em;
+  font-size: 3.6em;
   font-weight: 300;
   text-align: center;
 }
@@ -24,6 +24,12 @@
   margin: 20px 26px 0 26px;
   font-size: 1.2em;
   text-align: center;
+}
+
+@supports(margin: max(0px)) {
+  .connect > .description {
+    margin: 20px max(26px, env(safe-area-inset-right)) 0 max(26px, env(safe-area-inset-left));
+  }
 }
 
 .connect > button > .connect-strava {
