@@ -16,6 +16,10 @@
   line-height: 60px;
 }
 
+.create > .controls > ul > li > button {
+  height: 60px;
+}
+
 .create > a {
   visibility: hidden;
 }
