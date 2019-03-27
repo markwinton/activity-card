@@ -4,7 +4,7 @@ https://markwinton.github.io/activity-card
 
 A Strava activity visualizer
 
-![render preview](logo/logo-372.png)
+![render preview](icon/icon-372.png)
 
 ## Getting Started
 
