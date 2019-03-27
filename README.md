@@ -99,33 +99,6 @@ distance: distance in meters
 
 speed: average speed in meters per second
 
-### GET /api/v1/activities/random
-
-Generate random activities 
-
-__json response__
-
-```
-{
-  activities: [
-    {
-      "type": <integer>,
-      "start": <integer>,
-      "distance": <float>,
-      "speed": <float>
-    }
-  ]
-}
-```
- 
-type: 0=normal, 1=workout, 2=race
-
-start: start time as unix timestamp
-
-distance: distance in meters
-
-speed: average speed in meters per second
-
 ## Postgres
 
 ```

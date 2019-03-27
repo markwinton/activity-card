@@ -440,22 +440,4 @@ describe('service', () => {
           })));
     });
   });
-
-  describe('/api/v1/activities/random', () => {
-    it('should return 200 with activites', () => chai.request(app)
-      .get('/api/v1/activities/random')
-      .then((response) => {
-        chai.expect(response).to.have.status(200);
-        chai.expect(response).to.be.json;
-        chai.expect(response.body).to.have.keys(['activities']);
-        chai.expect(response.body.activities).to.have.lengthOf(200);
-        response.body.activities.forEach((activity) => {
-          chai.expect(activity).to.have.keys(['type', 'start', 'distance', 'speed']);
-          chai.expect(activity.type).to.be.a('number');
-          chai.expect(activity.start).to.be.a('number');
-          chai.expect(activity.distance).to.be.a('number');
-          chai.expect(activity.speed).to.be.a('number');
-        });
-      }));
-  });
 });
