@@ -4,6 +4,8 @@ https://markwinton.github.io/activity-card
 
 A Strava activity visualizer
 
+![render preview](logo/logo-372.png)
+
 ## Getting Started
 
 Activity Card is made up of a static React frontend, an Express service and a Postgres database. 
