@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import generateToken from './generate-token';
 import { authorize } from './service';
@@ -78,7 +78,14 @@ export default class extends React.Component {
       <section className="connect">
         <img src={Preview} className="preview" alt="" />
         <p className="title">Activity Card</p>
-        <p className="description">Create a unique visualization based on your Strava activities from the past year.</p>
+        <p className="description">
+          Create a unique visualization based on your Strava activities from the past year.
+        </p>
+        <p className="instructions">
+          Get started by connecting your Strava account below. Please read the
+          <Link to="/privacy"> Privacy Policy </Link>
+          for information on how Activity Card uses your data.
+        </p>
         {authorizing ? <Authorizing /> : <ConnectButton onClick={connect} />}
       </section>
     );
