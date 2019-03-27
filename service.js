@@ -90,6 +90,11 @@ app.get('/api/v1/activities/:before/:after', (request, response) => {
     .catch(error => sendErrorResponse(error, response));
 });
 
+app.get('/api/v1/activities/random', (request, response) => {
+  const activities = strava.getRandomActivities(200);
+  response.status(200).json(activities);
+});
+
 app.listen(process.env.PORT);
 
 module.exports = app;

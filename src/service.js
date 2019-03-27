@@ -28,3 +28,7 @@ export function deauthorize(token) {
 export function getActivities(token, before, after) {
   return request('GET', `${env.SERVICE_URL}/api/v1/activities/${before}/${after}`, { Authorization: `Bearer ${token}` });
 }
+
+export function getRandomActivities() {
+  return request('GET', `${env.SERVICE_URL}/api/v1/activities/random`);
+}
