@@ -79,10 +79,11 @@ export default class extends React.Component {
         <img src={Preview} className="preview" alt="" />
         <p className="title">Activity Card</p>
         <p className="description">
-          Create a unique visualization based on your Strava activities from the past year.
+          Create a unique visualization based on your Strava activities from
+          the past year. Get started by connecting your Strava account below.
         </p>
         <p className="instructions">
-          Get started by connecting your Strava account below. Please read the
+          Please read the
           <Link to="/privacy"> Privacy Policy </Link>
           for information on how Activity Card uses your data.
         </p>

@@ -22,10 +22,12 @@
 
 .connect > .description {
   margin: 20px 26px 0 26px;
+  font-size: 1.2em;
 }
 
 .connect > .instructions {
   margin: 40px 26px 0 26px;
+  font-size: 0.8em;
 }
 
 @supports(margin: max(0px)) {
