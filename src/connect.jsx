@@ -30,13 +30,6 @@ const ConnectButton = ({ onClick }) => (
   </button>
 );
 
-const Authorizing = () => (
-  <div className="authorizing">
-    <p>Connecting to your Strava account...</p>
-    <div className="indicator" />
-  </div>
-);
-
 export default class extends React.Component {
   constructor(props) {
     super(props);
@@ -74,18 +67,29 @@ export default class extends React.Component {
     if (redirect) {
       return <Redirect to={redirect} />;
     }
-    let action = null;
+    let content = null;
     if (authorizing) {
-      action = <Authorizing />;
+      content = (
+        <div className="action">
+          <p className="status">Connecting to your Strava account...</p>
+          <div className="indicator" />
+        </div>
+      );
     } else {
-      action = (
+      content = (
         <React.Fragment>
-          <p className="instructions">
-            Please see the
-            <Link to="/privacy"> Privacy Policy </Link>
-            for details about how Activity Card uses your data.
+          <p className="description">
+            Create a unique visualization based on your Strava activities from
+            the past year. Get started by connecting your account below.
           </p>
-          <ConnectButton onClick={connect} />
+          <div className="action">
+            <ConnectButton onClick={connect} />
+            <p className="instructions">
+              Please see the
+              <Link to="/privacy"> Privacy Policy </Link>
+              for details about how Activity Card uses your data.
+            </p>
+          </div>
         </React.Fragment>
       );
     }
@@ -93,8 +97,7 @@ export default class extends React.Component {
       <section className="connect">
         <img src={Preview} className="preview" alt="" />
         <p className="title">Activity Card</p>
-        <p className="description">Create a unique visualization based on your Strava activities from the past year.</p>
-        {action}
+        {content}
       </section>
     );
   }
