@@ -74,20 +74,27 @@ export default class extends React.Component {
     if (redirect) {
       return <Redirect to={redirect} />;
     }
+    let action = null;
+    if (authorizing) {
+      action = <Authorizing />;
+    } else {
+      action = (
+        <React.Fragment>
+          <p className="instructions">
+            Please see the
+            <Link to="/privacy"> Privacy Policy </Link>
+            for details about how Activity Card uses your data.
+          </p>
+          <ConnectButton onClick={connect} />
+        </React.Fragment>
+      );
+    }
     return (
       <section className="connect">
         <img src={Preview} className="preview" alt="" />
         <p className="title">Activity Card</p>
-        <p className="description">
-          Create a unique visualization based on your Strava activities
-          from the past year. Get started by connecting your account below.
-        </p>
-        <p className="instructions">
-          Please see the
-          <Link to="/privacy"> Privacy Policy </Link>
-          for details about how Activity Card uses your data.
-        </p>
-        {authorizing ? <Authorizing /> : <ConnectButton onClick={connect} />}
+        <p className="description">Create a unique visualization based on your Strava activities from the past year.</p>
+        {action}
       </section>
     );
   }
