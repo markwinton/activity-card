@@ -42,7 +42,7 @@
     "build": "webpack --mode=production",
     "start": "node service.js",
     "start:dev": "node service.js | webpack-dev-server --mode=development",
-    "lint": "eslint --ext js,jsx service.js lib test src",
+    "lint": "eslint --ext js,jsx service.js error.js lib test src",
     "test": "mocha"
   },
   "engines": {
