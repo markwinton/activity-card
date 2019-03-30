@@ -1,6 +1,6 @@
 # Activity Card
 
-https://markwinton.github.io/activity-card
+[markwinton.github.io/activity-card](https://markwinton.github.io/activity-card)
 
 A Strava activity visualizer
 
