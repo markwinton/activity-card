@@ -4,7 +4,7 @@
 
 A Strava activity visualizer
 
-![render preview](icon/icon-372.png)
+![preview](preview.png)
 
 ## Getting Started
 
