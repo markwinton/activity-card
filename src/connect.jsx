@@ -25,9 +25,13 @@ const connect = () => {
 };
 
 const ConnectButton = ({ onClick }) => (
-  <button type="button" onClick={onClick}>
+  <button type="button" className="action" onClick={onClick}>
     <img src={`${env.ASSETS_URL}/connect-strava.png`} className="connect-strava" alt="Connect with Strava" />
   </button>
+);
+
+const Indicator = () => (
+  <div className="indicator action" />
 );
 
 export default class extends React.Component {
@@ -67,37 +71,15 @@ export default class extends React.Component {
     if (redirect) {
       return <Redirect to={redirect} />;
     }
-    let content = null;
-    if (authorizing) {
-      content = (
-        <div className="action">
-          <p className="status">Connecting to your Strava account...</p>
-          <div className="indicator" />
-        </div>
-      );
-    } else {
-      content = (
-        <React.Fragment>
-          <p className="description">
-            Create a unique visualization based on your Strava activities from
-            the past year. Get started by connecting your account below.
-          </p>
-          <div className="action">
-            <ConnectButton onClick={connect} />
-            <p className="instructions">
-              Please see the
-              <Link to="/privacy"> Privacy Policy </Link>
-              for details about how Activity Card uses your data.
-            </p>
-          </div>
-        </React.Fragment>
-      );
-    }
+    let action = authorizing ? <Indicator /> : <ConnectButton onClick={connect} />;
     return (
       <section className="connect">
         <img src={Preview} className="preview" alt="" />
         <p className="title">Activity Card</p>
-        {content}
+        <p className="description">
+          Create a unique visualization based on your Strava activities from the past year.
+        </p>
+        {action}
       </section>
     );
   }
