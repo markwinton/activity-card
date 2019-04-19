@@ -1,4 +1,8 @@
+import './attribution';
+import 'normalize.css';
+import './css/style.css';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { HashRouter, Route } from 'react-router-dom';
 import Header from './header';
 import Footer from './footer';
@@ -9,9 +13,6 @@ import Privacy from './privacy';
 import ErrorBoundary from './error-boundary';
 import AuthorizationBoundary from './authorization-boundary';
 import PageView from './page-view';
-
-ga('set', 'anonymizeIp', true);
-ga('create', env.GA_TRACKING_ID, 'auto');
 
 const withHeader = Component => props => (
   <React.Fragment>
@@ -42,7 +43,7 @@ const create = withAuthorizationBoundary(withPageView(withHeader(withFooter(Crea
 const contact = withPageView(withHeader(withFooter(Contact)));
 const privacy = withPageView(withHeader(withFooter(Privacy)));
 
-export default () => (
+const App = () => (
   <ErrorBoundary>
     <HashRouter>
       <React.Fragment>
@@ -54,3 +55,5 @@ export default () => (
     </HashRouter>
   </ErrorBoundary>
 );
+
+ReactDOM.render(<App />, document.getElementById('root'));
