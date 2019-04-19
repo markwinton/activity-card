@@ -1,5 +1,5 @@
 import './attribution';
-import 'normalize.css';
+import './css/open-sans.css';
 import './css/app.css';
 import React from 'react';
 import ReactDOM from 'react-dom';

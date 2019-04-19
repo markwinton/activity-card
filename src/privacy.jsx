@@ -1,6 +1,5 @@
 import React from 'react';
 import './css/information.css';
-import './css/privacy-policy.css';
 
 export default () => (
   <section className="privacy-policy information">
