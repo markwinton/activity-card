@@ -1,6 +1,6 @@
 import './attribution';
 import 'normalize.css';
-import './css/style.css';
+import './css/app.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Route } from 'react-router-dom';
