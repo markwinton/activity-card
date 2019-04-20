@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import generateToken from './generate-token';
 import { authorize } from './service';
@@ -71,7 +71,7 @@ export default class extends React.Component {
     if (redirect) {
       return <Redirect to={redirect} />;
     }
-    let action = authorizing ? <Indicator /> : <ConnectButton onClick={connect} />;
+    const action = authorizing ? <Indicator /> : <ConnectButton onClick={connect} />;
     return (
       <section className="connect">
         <img src={Preview} className="preview" alt="" />
