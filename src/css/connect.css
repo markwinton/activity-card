@@ -14,25 +14,32 @@
   height: 300px;
 }
 
+.connect > p {
+  margin-left: 26px;
+  margin-right: 26px;
+}
+
 .connect > .title {
-  margin: 26px 26px 0 26px;
+  /*margin: 26px 26px 0 26px;*/
   font-size: 3.6em;
   font-weight: 300;
 }
 
 .connect > .description {
-  margin: 16px 26px 0 26px;
+  /*margin: 16px 26px 0 26px;*/
   font-size: 1.1em;
   max-width: 760px;
 }
 
 @supports(margin: max(0px)) {
-  .connect > .description {
+  .connect > p {
     margin-left: max(26px, env(safe-area-inset-left));
     margin-right: max(26px, env(safe-area-inset-right));
   }
 }
 
 .connect > .action {
-  margin: 40px 0 40px 0;
+  /*margin: 40px 0 40px 0;*/
+  margin-top: 40px;
+  margin-bottom: 40px;
 }
