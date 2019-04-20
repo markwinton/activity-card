@@ -3,8 +3,6 @@ header {
   align-items: center;
   width: 100%;
   height: 80px;
-  
-  background-color: yellow;
 }
 
 header > .logo {
@@ -20,7 +18,6 @@ header > .user {
   header > .logo {
     margin-left: max(20px, env(safe-area-inset-left));
   }
-
   header > .user {
     margin-right: max(20px, env(safe-area-inset-right));
   }
@@ -33,8 +30,6 @@ header > .user {
   align-items: flex-end;
   max-width: 40vw;
   height: 100%;
-
-  background-color: orange;
 }
 
 header > .user > .name {
@@ -43,11 +38,4 @@ header > .user > .name {
   text-align: right;
   overflow: hidden;
   max-width: 100%;
-  
-  background-color: red;
-}
-
-header > .user > button {
-
-  background-color: purple;
 }

@@ -3,20 +3,14 @@ footer {
   align-items: center;
   width: 100%;
   height: 80px;
-  
-  background-color: blue;
 }
 
 footer > *:first-child {
   margin-left: 20px;
-  
-  background-color: green;
 }
 
 footer > *:not(:first-child) {
   margin-left: 16px;
-  
-  background-color: yellow;
 }
 
 @supports(margin: max(0px)) {

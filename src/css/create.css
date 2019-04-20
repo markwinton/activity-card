@@ -4,15 +4,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  background-color: grey;
 }
 
 .create > .controls > * {
   margin-left: 14px;
   margin-right: 14px;
-  
-  background-color: yellow;
 }
 
 .create > a {

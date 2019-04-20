@@ -47,7 +47,7 @@ export default class extends React.Component {
     if (redirect) {
       return <Redirect to={redirect} />;
     }
-    const name = 'oiawankjalksjca laklsjh dlkauwlkuahlkuwhd akukjahsd kaj dhwuadkwuhdlakuwhdlakuwhdlak'//localStorage.getItem('name');
+    const name = localStorage.getItem('name');
     const token = localStorage.getItem('token');
     let user = null;
     if (token) {
