@@ -57,10 +57,10 @@ export default class extends React.Component {
         <React.Suspense fallback={<Placeholder />}>
           <Card token={this.token} before={this.before} after={this.after} ref={this.card} />
           <div className="controls">
-            <ul>
-              <li><a href="https://www.strava.com/athlete/calendar/2019" className="view-on-strava">View on Strava</a></li>
-              <li><button type="button" onClick={this.handleSave} disabled={exporting}>Save Image</button></li>
-            </ul>
+            <a href="https://www.strava.com/athlete/calendar/2019" className="view-on-strava">View on Strava</a>
+            <button type="button" onClick={this.handleSave} disabled={exporting}>
+              Save Image
+            </button>
           </div>
           <a href="/" ref={this.downloadLink}>save</a>
         </React.Suspense>

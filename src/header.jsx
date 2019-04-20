@@ -6,7 +6,7 @@ import './css/logo.css';
 
 const User = ({ name, onClick, disabled }) => (
   <div className="user">
-    {name}
+    <span className="name">{name}</span>
     <button type="button" onClick={onClick} disabled={disabled}>
       Disconnect
     </button>
@@ -47,7 +47,7 @@ export default class extends React.Component {
     if (redirect) {
       return <Redirect to={redirect} />;
     }
-    const name = localStorage.getItem('name');
+    const name = 'oiawankjalksjca laklsjh dlkauwlkuahlkuwhd akukjahsd kaj dhwuadkwuhdlakuwhdlakuwhdlak'//localStorage.getItem('name');
     const token = localStorage.getItem('token');
     let user = null;
     if (token) {
@@ -55,10 +55,8 @@ export default class extends React.Component {
     }
     return (
       <header>
-        <ul>
-          <li className="left"><Link to="/" className="logo">Activity Card</Link></li>
-          <li className="right">{user}</li>
-        </ul>
+        <Link to="/" className="logo">Activity Card</Link>
+        {user}
       </header>
     );
   }

@@ -28,7 +28,8 @@
 
 @supports(margin: max(0px)) {
   .connect > .description {
-    margin: 16px max(26px, env(safe-area-inset-right)) 0 max(26px, env(safe-area-inset-left));
+    margin-left: max(26px, env(safe-area-inset-left));
+    margin-right: max(26px, env(safe-area-inset-right));
   }
 }
 
