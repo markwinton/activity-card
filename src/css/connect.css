@@ -20,13 +20,12 @@
 }
 
 .connect > .title {
-  /*margin: 26px 26px 0 26px;*/
   font-size: 3.6em;
   font-weight: 300;
+  margin-bottom: 8px;
 }
 
 .connect > .description {
-  /*margin: 16px 26px 0 26px;*/
   font-size: 1.1em;
   max-width: 760px;
 }
