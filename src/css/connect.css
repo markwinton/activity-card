@@ -21,14 +21,14 @@
 }
 
 .connect > .description {
-  margin: 8px 26px 0 26px;
+  margin: 16px 26px 0 26px;
   font-size: 1.1em;
   max-width: 760px;
 }
 
 @supports(margin: max(0px)) {
   .connect > .description {
-    margin: 8px max(26px, env(safe-area-inset-right)) 0 max(26px, env(safe-area-inset-left));
+    margin: 16px max(26px, env(safe-area-inset-right)) 0 max(26px, env(safe-area-inset-left));
   }
 }
 
