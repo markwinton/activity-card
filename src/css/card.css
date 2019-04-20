@@ -6,4 +6,5 @@
   height: 100vw;
   max-height: 500px;
   background-color: #000209;
+  -webkit-user-select: none;
 }

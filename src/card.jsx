@@ -5,7 +5,6 @@ import React from 'react';
 import Composition from './render/composition';
 import Sunflower from './render/sunflower';
 import Touch from './touch';
-import './css/noselect.css';
 import './css/card.css';
 
 const BACKGROUND_COLOR = 0x000209;
@@ -103,6 +102,6 @@ export default class extends React.Component {
   }
 
   render() {
-    return <div className="card noselect" ref={this.container} />;
+    return <div className="card" ref={this.container} />;
   }
 }
