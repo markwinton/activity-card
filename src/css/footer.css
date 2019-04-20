@@ -20,7 +20,7 @@ footer > *:not(:first-child) {
 }
 
 @supports(margin: max(0px)) {
-  footer:first-child {
+  footer > *:first-child {
     margin-left: max(20px, env(safe-area-inset-left));
   }
 }
