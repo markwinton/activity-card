@@ -44,9 +44,6 @@ export default class extends React.Component {
       this.setState({ exporting: false });
 
       ga('send', 'event', 'Card', 'share', 'sunflower', EXPORT_SIZE);
-
-      // prevent url being revoked before download finished
-      setTimeout(() => URL.revokeObjectURL(url), 0);
     });
   }
 
