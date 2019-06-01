@@ -38,7 +38,8 @@ export default class extends React.Component {
     this.webGLRenderer.setPixelRatio(window.devicePixelRatio);
     this.container.current.appendChild(this.webGLRenderer.domElement);
 
-    if (this.props.branded) {
+    const { branded } = this.props;
+    if (branded) {
       this.logo = new Mesh(
         new PlaneGeometry(LOGO.width, LOGO.height),
         new MeshBasicMaterial({ transparent: true, map: textureLoader.load(`${env.ASSETS_URL}/powered-by-strava.png`) }),
@@ -96,7 +97,8 @@ export default class extends React.Component {
     composition.fitBoundingBox(this.visualization.boundingBox);
     composition.setBackgroundColor(BACKGROUND_COLOR);
 
-    if (this.props.branded) {
+    const { branded } = this.props;
+    if (branded) {
       composition.addObject(this.logo.clone());
     }
 
