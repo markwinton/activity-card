@@ -1,7 +1,6 @@
 import React from 'react';
 import { getActivities } from './service';
-
-const Card = React.lazy(() => import('./card'));
+import Card from './card';
 
 export default class extends React.Component {
   constructor(props) {
@@ -28,6 +27,6 @@ export default class extends React.Component {
         .then(({ activities }) => sessionStorage.setItem('activities', JSON.stringify(activities)))
         .catch(err => this.setState({ error: err }));
     }
-    return <Card activities={JSON.parse(cachedActivities)} ref={this.card} />;
+    return <Card activities={JSON.parse(cachedActivities)} ref={this.card} branded />;
   }
 }

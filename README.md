@@ -115,6 +115,6 @@ CREATE TABLE authorizations (
   PRIMARY KEY(session_token, access_token)
 );
 
-INSERT INTO limiters VALUES ('strava.minute', 0, '-infinity');
-INSERT INTO limiters VALUES ('strava.day', 0, '-infinity');
+INSERT INTO limiters VALUES ('strava.minute', 600, '-infinity');
+INSERT INTO limiters VALUES ('strava.day', 30000, '-infinity');
 ```
