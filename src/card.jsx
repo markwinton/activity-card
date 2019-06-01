@@ -38,13 +38,15 @@ export default class extends React.Component {
     this.webGLRenderer.setPixelRatio(window.devicePixelRatio);
     this.container.current.appendChild(this.webGLRenderer.domElement);
 
-    this.logo = new Mesh(
-      new PlaneGeometry(LOGO.width, LOGO.height),
-      new MeshBasicMaterial({ transparent: true, map: textureLoader.load(`${env.ASSETS_URL}/powered-by-strava.png`) }),
-    );
-    this.logo.position.x = 0.5 - LOGO.width / 2;
-    this.logo.position.y = -0.5 + LOGO.height / 2 - LOGO.verticalPadding;
-    this.composition.addObject(this.logo);
+    if (this.props.branded) {
+      this.logo = new Mesh(
+        new PlaneGeometry(LOGO.width, LOGO.height),
+        new MeshBasicMaterial({ transparent: true, map: textureLoader.load(`${env.ASSETS_URL}/powered-by-strava.png`) }),
+      );
+      this.logo.position.x = 0.5 - LOGO.width / 2;
+      this.logo.position.y = -0.5 + LOGO.height / 2 - LOGO.verticalPadding;
+      this.composition.addObject(this.logo);
+    }
 
     this.touch = new Touch(this.container.current, (delta) => {
       this.scene.rotation.y += delta.x * 0.002;
@@ -94,7 +96,9 @@ export default class extends React.Component {
     composition.fitBoundingBox(this.visualization.boundingBox);
     composition.setBackgroundColor(BACKGROUND_COLOR);
 
-    composition.addObject(this.logo.clone());
+    if (this.props.branded) {
+      composition.addObject(this.logo.clone());
+    }
 
     composition.render(webGLRenderer);
 

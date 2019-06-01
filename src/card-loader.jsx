@@ -27,6 +27,6 @@ export default class extends React.Component {
         .then(({ activities }) => sessionStorage.setItem('activities', JSON.stringify(activities)))
         .catch(err => this.setState({ error: err }));
     }
-    return <Card activities={JSON.parse(cachedActivities)} ref={this.card} />;
+    return <Card activities={JSON.parse(cachedActivities)} ref={this.card} branded />;
   }
 }
