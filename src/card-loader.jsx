@@ -1,7 +1,6 @@
 import React from 'react';
 import { getActivities } from './service';
-
-const Card = React.lazy(() => import('./card'));
+import Card from './card';
 
 export default class extends React.Component {
   constructor(props) {
