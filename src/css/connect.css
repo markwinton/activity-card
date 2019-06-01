@@ -17,6 +17,7 @@
 .connect > .title {
   font-size: 3.6em;
   font-weight: 300;
+  margin-top: 0px;
   margin-bottom: 8px;
 }
 
