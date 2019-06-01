@@ -9,11 +9,6 @@
   overflow: hidden;
 }
 
-.connect > .preview {
-  width: 852px;
-  height: 300px;
-}
-
 .connect > p {
   margin-left: 26px;
   margin-right: 26px;

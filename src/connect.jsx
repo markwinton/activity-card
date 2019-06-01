@@ -3,7 +3,8 @@ import { Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 import generateToken from './generate-token';
 import { authorize } from './service';
-import Preview from './images/preview.png';
+import Card from './card';
+import activities from './sample-activities.json';
 import './css/connect-strava.css';
 import './css/connect.css';
 import './css/indicator.css';
@@ -74,7 +75,7 @@ export default class extends React.Component {
     const action = authorizing ? <Indicator /> : <ConnectButton onClick={connect} />;
     return (
       <section className="connect">
-        <img src={Preview} className="preview" alt="" />
+        <Card activities={activities} />
         <p className="title">Activity Card</p>
         <p className="description">
           Create a unique visualization based on your Strava activities from the past year.
