@@ -83,7 +83,7 @@ export default class extends React.Component {
     }
     return (
       <section className="connect">
-        <Card activities={activities} animated={!authorizing} />
+        <Card activities={activities} />
         <p className="title">Activity Card</p>
         <p className="description">{description}</p>
         {action}
