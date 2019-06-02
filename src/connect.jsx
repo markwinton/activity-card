@@ -72,8 +72,8 @@ export default class extends React.Component {
     if (redirect) {
       return <Redirect to={redirect} />;
     }
-    var action;
-    var description;
+    let action;
+    let description;
     if (authorizing) {
       action = <Indicator />;
       description = 'Connecting to your Strava account...';
