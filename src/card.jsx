@@ -39,7 +39,7 @@ export default class extends React.Component {
     this.container.current.appendChild(this.webGLRenderer.domElement);
 
     const { branded } = this.props;
-    if (branded) {
+    if (branded === true) {
       this.logo = new Mesh(
         new PlaneGeometry(LOGO.width, LOGO.height),
         new MeshBasicMaterial({ transparent: true, map: textureLoader.load(`${env.ASSETS_URL}/powered-by-strava.png`) }),
@@ -53,9 +53,9 @@ export default class extends React.Component {
       this.scene.rotation.y += delta.x * 0.002;
     });
 
-    const { activities } = this.props;
+    const { activities, animated } = this.props;
 
-    this.visualization = new Sunflower(activities, this.scene);
+    this.visualization = new Sunflower(activities, this.scene, animated);
     this.composition.fitBoundingBox(this.visualization.boundingBox);
 
     let timer = null;

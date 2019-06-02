@@ -27,7 +27,7 @@ const ANIMATION = {
 };
 
 export default class {
-  constructor(activities, scene) {
+  constructor(activities, scene, animated) {
     this.scene = scene;
 
     this.light = new AmbientLight(0xffffff);
@@ -72,27 +72,34 @@ export default class {
 
     this.spheres.forEach(sphere => sphere.scale.set(0.1, 0.1, 0.1));
 
-    this.start = new Date();
+    if (animated === true) {
+      this.start = new Date();
+      this.animation = setInterval(() => {
+        const now = new Date();
+        const delta = (now - this.start) / 1000;
 
-    this.animation = setInterval(() => {
-      const now = new Date();
-      const delta = (now - this.start) / 1000;
+        this.spheres.forEach((sphere, i) => {
+          const { material, userData: { opacity } } = sphere;
 
-      this.spheres.forEach((sphere, i) => {
+          const t = clamp((delta - ANIMATION.delay(i)) / ANIMATION.duration, 0, 1);
+          const p = easeOut(t);
+
+          material.opacity = opacity * p;
+
+          sphere.scale.set(
+            0.1 + p * 0.9,
+            0.1 + p * 0.9,
+            0.1 + p * 0.9,
+          );
+        });
+      }, 1000 / 64);
+    } else {
+      this.spheres.forEach((sphere) => {
         const { material, userData: { opacity } } = sphere;
-
-        const t = clamp((delta - ANIMATION.delay(i)) / ANIMATION.duration, 0, 1);
-        const p = easeOut(t);
-
-        material.opacity = opacity * p;
-
-        sphere.scale.set(
-          0.1 + p * 0.9,
-          0.1 + p * 0.9,
-          0.1 + p * 0.9,
-        );
+        material.opacity = opacity;
+        sphere.scale.set(1.0, 1.0, 1.0);
       });
-    }, 1000 / 64);
+    }
   }
 
   teardown() {
