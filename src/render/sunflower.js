@@ -70,9 +70,9 @@ export default class {
 
     this.boundingBox = new Box3().setFromObject(this.scene);
 
-    this.spheres.forEach(sphere => sphere.scale.set(0.1, 0.1, 0.1));
-
     if (animated === true) {
+      this.spheres.forEach(sphere => sphere.scale.set(0.1, 0.1, 0.1));
+
       this.start = new Date();
       this.animation = setInterval(() => {
         const now = new Date();
@@ -97,7 +97,6 @@ export default class {
       this.spheres.forEach((sphere) => {
         const { material, userData: { opacity } } = sphere;
         material.opacity = opacity;
-        sphere.scale.set(1.0, 1.0, 1.0);
       });
     }
   }
