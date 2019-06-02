@@ -72,14 +72,20 @@ export default class extends React.Component {
     if (redirect) {
       return <Redirect to={redirect} />;
     }
-    const action = authorizing ? <Indicator /> : <ConnectButton onClick={connect} />;
+    let action;
+    let description;
+    if (authorizing) {
+      action = <Indicator />;
+      description = 'Connecting to your Strava account...';
+    } else {
+      action = <ConnectButton onClick={connect} />;
+      description = 'Create a unique visualization based on your Strava activities from the past year.';
+    }
     return (
       <section className="connect">
-        <Card activities={activities} />
+        <Card activities={activities} animated={!authorizing} />
         <p className="title">Activity Card</p>
-        <p className="description">
-          Create a unique visualization based on your Strava activities from the past year.
-        </p>
+        <p className="description">{description}</p>
         {action}
       </section>
     );
