@@ -7,7 +7,7 @@ import Sunflower from './render/sunflower';
 import Touch from './touch';
 import './css/card.css';
 
-const BACKGROUND_COLOR = 0x000209;
+const BACKGROUND_COLOR = 0x0e0f14;
 
 const LOGO = {
   width: 0.4,
